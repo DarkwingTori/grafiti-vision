@@ -1,21 +1,131 @@
+import ARKit
 import SwiftUI
 
-/// Phase 1 placeholder screen. The live AR camera session (ARSession,
-/// world tracking, plane detection) is introduced in Phase 2 — for now
-/// this just establishes the app's entry point and navigation shell.
+/// Main camera/AR screen. Requests camera access, then hosts the live
+/// AR session and surfaces its tracking/plane-detection state as the
+/// SEARCHING / TRACKING LIMITED / SURFACE DETECTED banner from the spec.
 struct CameraView: View {
+    @StateObject private var sessionManager = ARSessionManager()
+    @State private var permissionStatus: CameraPermissionService.Status = .notDetermined
+
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            switch permissionStatus {
+            case .authorized:
+                arContent
+            case .denied:
+                permissionDeniedView
+            case .notDetermined:
+                Color.black.ignoresSafeArea()
+            }
+        }
+        .onAppear(perform: resolvePermission)
+    }
 
-            VStack(spacing: 16) {
-                Text("JET SET VISION")
-                    .font(.system(size: 32, weight: .black, design: .rounded))
-                    .foregroundStyle(.white)
+    private var arContent: some View {
+        ZStack(alignment: .bottom) {
+            ARViewContainer(sessionManager: sessionManager)
+                .ignoresSafeArea()
 
-                Text("CAMERA COMING IN PHASE 2")
-                    .font(.system(size: 13, weight: .semibold, design: .monospaced))
-                    .foregroundStyle(.white.opacity(0.6))
+            statusBanner
+                .padding(.bottom, 48)
+        }
+    }
+
+    private var statusBanner: some View {
+        VStack(spacing: 8) {
+            Text(statusTitle)
+                .font(.system(size: 15, weight: .black, design: .monospaced))
+            if let statusSubtitle {
+                Text(statusSubtitle)
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .opacity(0.7)
+            }
+        }
+        .foregroundStyle(.white)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .background(.black.opacity(0.55), in: Capsule())
+        .animation(.easeInOut(duration: 0.2), value: statusTitle)
+    }
+
+    private var statusTitle: String {
+        switch sessionManager.trackingStatus {
+        case .searching:
+            return "SEARCHING FOR SURFACE..."
+        case .limited:
+            return "TRACKING LIMITED"
+        case .normal:
+            switch sessionManager.targetedSurface {
+            case .floor:
+                return "FLOOR DETECTED"
+            case .wall:
+                return "WALL DETECTED"
+            case nil:
+                return "NO USABLE SURFACE"
+            }
+        }
+    }
+
+    private var statusSubtitle: String? {
+        switch sessionManager.trackingStatus {
+        case .searching:
+            return nil
+        case .limited(let reason):
+            return limitedReasonMessage(reason)
+        case .normal:
+            return sessionManager.targetedSurface == nil ? "TRY A FLAT WALL OR FLOOR" : "SPRAY MODE ARRIVES IN PHASE 3"
+        }
+    }
+
+    private func limitedReasonMessage(_ reason: ARCamera.TrackingState.Reason) -> String {
+        switch reason {
+        case .excessiveMotion:
+            return "MOVE YOUR PHONE SLOWLY"
+        case .insufficientFeatures:
+            return "POINT AT A TEXTURED SURFACE"
+        case .initializing:
+            return "STARTING UP..."
+        case .relocalizing:
+            return "RELOCALIZING..."
+        @unknown default:
+            return "MOVE YOUR PHONE SLOWLY"
+        }
+    }
+
+    private var permissionDeniedView: some View {
+        VStack(spacing: 16) {
+            Text("CAMERA ACCESS NEEDED")
+                .font(.system(size: 22, weight: .black, design: .rounded))
+            Text("Jet Set Vision uses your camera to detect real-world surfaces and place AR graffiti on them. Enable camera access in Settings to continue.")
+                .font(.system(size: 14, weight: .medium))
+                .multilineTextAlignment(.center)
+                .opacity(0.7)
+                .padding(.horizontal, 32)
+            Button("OPEN SETTINGS") {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url)
+                }
+            }
+            .font(.system(size: 14, weight: .bold, design: .monospaced))
+            .padding()
+            .background(.white, in: Capsule())
+            .foregroundStyle(.black)
+        }
+        .foregroundStyle(.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.black)
+    }
+
+    private func resolvePermission() {
+        switch CameraPermissionService.currentStatus {
+        case .authorized:
+            permissionStatus = .authorized
+        case .denied:
+            permissionStatus = .denied
+        case .notDetermined:
+            CameraPermissionService.requestAccess { granted in
+                permissionStatus = granted ? .authorized : .denied
             }
         }
     }

@@ -7,19 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B7CFB5699CD7EFB28390A6A /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */; };
 		51F5394A4F084F0D08BF2B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8F2A53658694255AB236EA /* Assets.xcassets */; };
+		6205A927EA93D8D409F10F58 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */; };
+		67FAF877591DEC7D9291536D /* CameraPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */; };
+		8257BA1E22A5B670B0093C12 /* PlaneDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */; };
 		BC8A22C1B32A7B3D795966BA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58F172583C5A0F1E03E6E8C /* AppState.swift */; };
 		CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64616CF712527AC05A31774 /* JetSetVisionApp.swift */; };
 		FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FAC536861D879E288FDDED /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionService.swift; sourceTree = "<group>"; };
+		75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		7E1A43F84B325FD47EA382FF /* JetSetVision.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JetSetVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A58F172583C5A0F1E03E6E8C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A64616CF712527AC05A31774 /* JetSetVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetSetVisionApp.swift; sourceTree = "<group>"; };
 		A8FAC536861D879E288FDDED /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		BE76046A827DADFA3211C8C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DB8F2A53658694255AB236EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
+		EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -37,6 +45,24 @@
 				A8FAC536861D879E288FDDED /* CameraView.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		43C404FC366F1DDFDB23697C /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */,
+				E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */,
+				EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
+		8C0F3430996A0780D0CC7675 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		94FD2E95656A11C11062DCB2 /* App */ = {
@@ -77,8 +103,10 @@
 			children = (
 				BE76046A827DADFA3211C8C9 /* Info.plist */,
 				94FD2E95656A11C11062DCB2 /* App */,
+				43C404FC366F1DDFDB23697C /* AR */,
 				E3B0A579FAC704ADCAA906D9 /* Features */,
 				0D1B4447D2721F6F62C0758B /* Resources */,
+				8C0F3430996A0780D0CC7675 /* Services */,
 			);
 			path = JetSetVision;
 			sourceTree = "<group>";
@@ -154,9 +182,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B7CFB5699CD7EFB28390A6A /* ARSessionManager.swift in Sources */,
+				6205A927EA93D8D409F10F58 /* ARViewContainer.swift in Sources */,
 				BC8A22C1B32A7B3D795966BA /* AppState.swift in Sources */,
+				67FAF877591DEC7D9291536D /* CameraPermissionService.swift in Sources */,
 				FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */,
 				CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */,
+				8257BA1E22A5B670B0093C12 /* PlaneDetector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
