@@ -1,0 +1,30 @@
+name: JetSetVision
+options:
+  bundleIdPrefix: com.torienmitchell
+  deploymentTarget:
+    iOS: "17.0"
+
+targets:
+  JetSetVision:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: JetSetVision
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.torienmitchell.JetSetVision
+        SWIFT_VERSION: "5.0"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        TARGETED_DEVICE_FAMILY: "1"
+        ENABLE_PREVIEWS: YES
+    info:
+      path: JetSetVision/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities:
+          - arkit
+        NSCameraUsageDescription: "Jet Set Vision uses your camera to detect real-world surfaces and place augmented-reality graffiti on them."
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
