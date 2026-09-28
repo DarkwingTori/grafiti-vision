@@ -12,7 +12,7 @@ The project is primarily a **computer vision + on-device ML + AR systems project
 
 ## Status
 
-**Phase 1 (Foundation) complete.** The Xcode project exists, camera permission is configured, and the app launches to a placeholder screen. AR/Vision/graffiti features have not been implemented yet — see the phase plan in `claude.md` for what's next.
+**Phase 2 (AR Tracking) complete.** The camera screen now runs a live ARSession with horizontal + vertical plane detection, visualizes detected planes, and continuously raycasts from screen center to show a WALL DETECTED / FLOOR DETECTED / TRACKING LIMITED status banner. Graffiti placement, Vision Mode, capture, and gallery are not implemented yet — see the phase plan in `claude.md` for what's next.
 
 ## Setup
 
