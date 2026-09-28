@@ -27,9 +27,7 @@ The application uses:
 
 The project is inspired by the energy of graffiti, skate culture, photography, and games such as Jet Set Radio.
 
-Do NOT copy copyrighted Jet Set Radio assets, characters, logos, artwork, sounds, or proprietary UI.
 
-All graffiti assets should be original.
 
 ---
 
@@ -303,7 +301,7 @@ Use original visual design inspired by:
 * skate culture
 * early-2000s gaming interfaces
 
-Do not copy Jet Set Radio's exact interface.
+
 
 ---
 
@@ -446,7 +444,6 @@ Symbol01
 
 Use simple vector/raster assets that can be bundled with the app.
 
-Do not download copyrighted game assets.
 
 ---
 

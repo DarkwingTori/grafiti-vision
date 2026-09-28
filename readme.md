@@ -12,7 +12,9 @@ The project is primarily a **computer vision + on-device ML + AR systems project
 
 ## Status
 
-**Phase 2 (AR Tracking) complete.** The camera screen now runs a live ARSession with horizontal + vertical plane detection, visualizes detected planes, and continuously raycasts from screen center to show a WALL DETECTED / FLOOR DETECTED / TRACKING LIMITED status banner. Graffiti placement, Vision Mode, capture, and gallery are not implemented yet — see the phase plan in `claude.md` for what's next.
+**Phase 3 (Graffiti Placement) complete.** Users can pick a graffiti design from the bottom picker, tap a detected wall/floor to spray it there (anchored via AR raycast, oriented to the surface), then move/rotate/scale it with standard touch gestures, and delete the selected piece. Vision Mode, capture, and gallery are not implemented yet — see the phase plan in `claude.md` for what's next.
+
+Graffiti artwork lives in `Assets.xcassets` as `Graffiti_*` image sets, sourced from `~/Desktop/graffiti`. Per the developer, Sega permits non-commercial personal use of this Jet Set Radio–style artwork — this has not been independently verified, so treat this build as personal/local use only unless that's confirmed further before any public sharing, demo, or distribution.
 
 ## Setup
 

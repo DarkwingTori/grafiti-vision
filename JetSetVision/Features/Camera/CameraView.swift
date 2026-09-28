@@ -6,6 +6,7 @@ import SwiftUI
 /// SEARCHING / TRACKING LIMITED / SURFACE DETECTED banner from the spec.
 struct CameraView: View {
     @StateObject private var sessionManager = ARSessionManager()
+    @StateObject private var placementController = GraffitiPlacementController()
     @State private var permissionStatus: CameraPermissionService.Status = .notDetermined
 
     var body: some View {
@@ -24,11 +25,39 @@ struct CameraView: View {
 
     private var arContent: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(sessionManager: sessionManager)
+            ARViewContainer(sessionManager: sessionManager, placementController: placementController)
                 .ignoresSafeArea()
 
-            statusBanner
-                .padding(.bottom, 48)
+            if placementController.hasSelection {
+                deleteButton
+            }
+
+            VStack(spacing: 16) {
+                statusBanner
+                GraffitiPicker(controller: placementController)
+            }
+            .padding(.bottom, 32)
+        }
+    }
+
+    private var deleteButton: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    placementController.deleteSelected()
+                } label: {
+                    Image(systemName: "trash.fill")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(.white)
+                        .padding(14)
+                        .background(.red.opacity(0.85), in: Circle())
+                }
+                .accessibilityLabel("Delete selected graffiti")
+                .padding(.trailing, 20)
+                .padding(.top, 56)
+            }
+            Spacer()
         }
     }
 
@@ -74,7 +103,7 @@ struct CameraView: View {
         case .limited(let reason):
             return limitedReasonMessage(reason)
         case .normal:
-            return sessionManager.targetedSurface == nil ? "TRY A FLAT WALL OR FLOOR" : "SPRAY MODE ARRIVES IN PHASE 3"
+            return sessionManager.targetedSurface == nil ? "TRY A FLAT WALL OR FLOOR" : "TAP TO SPRAY"
         }
     }
 

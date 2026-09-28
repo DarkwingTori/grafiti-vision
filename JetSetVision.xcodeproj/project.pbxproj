@@ -7,24 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0617BBD9E8DFA4629DC96148 /* GraffitiRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */; };
+		13585C7B4B983D2B02646EBA /* GraffitiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */; };
 		2B7CFB5699CD7EFB28390A6A /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */; };
 		51F5394A4F084F0D08BF2B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8F2A53658694255AB236EA /* Assets.xcassets */; };
+		566F12C40BDD611CB2A7C91D /* GraffitiPlacementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EDBDDAFA8F4131D92CFB3E /* GraffitiPlacementController.swift */; };
 		6205A927EA93D8D409F10F58 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */; };
 		67FAF877591DEC7D9291536D /* CameraPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */; };
 		8257BA1E22A5B670B0093C12 /* PlaneDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */; };
+		AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */; };
 		BC8A22C1B32A7B3D795966BA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58F172583C5A0F1E03E6E8C /* AppState.swift */; };
 		CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64616CF712527AC05A31774 /* JetSetVisionApp.swift */; };
 		FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FAC536861D879E288FDDED /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiRenderer.swift; sourceTree = "<group>"; };
+		3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiPicker.swift; sourceTree = "<group>"; };
 		668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionService.swift; sourceTree = "<group>"; };
 		75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		7E1A43F84B325FD47EA382FF /* JetSetVision.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JetSetVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A58F172583C5A0F1E03E6E8C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A64616CF712527AC05A31774 /* JetSetVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetSetVisionApp.swift; sourceTree = "<group>"; };
 		A8FAC536861D879E288FDDED /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiAsset.swift; sourceTree = "<group>"; };
 		BE76046A827DADFA3211C8C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D4EDBDDAFA8F4131D92CFB3E /* GraffitiPlacementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiPlacementController.swift; sourceTree = "<group>"; };
 		DB8F2A53658694255AB236EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 		EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetector.swift; sourceTree = "<group>"; };
@@ -57,10 +65,20 @@
 			path = AR;
 			sourceTree = "<group>";
 		};
+		86F1E5E2BF83DE71F37C8C16 /* Spray */ = {
+			isa = PBXGroup;
+			children = (
+				3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */,
+				D4EDBDDAFA8F4131D92CFB3E /* GraffitiPlacementController.swift */,
+			);
+			path = Spray;
+			sourceTree = "<group>";
+		};
 		8C0F3430996A0780D0CC7675 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */,
+				01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -90,10 +108,19 @@
 			);
 			sourceTree = "<group>";
 		};
+		C1141D4E78D720AD613B0FF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E3B0A579FAC704ADCAA906D9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				0ED607D5532259DBCC56E74A /* Camera */,
+				86F1E5E2BF83DE71F37C8C16 /* Spray */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -105,6 +132,7 @@
 				94FD2E95656A11C11062DCB2 /* App */,
 				43C404FC366F1DDFDB23697C /* AR */,
 				E3B0A579FAC704ADCAA906D9 /* Features */,
+				C1141D4E78D720AD613B0FF4 /* Models */,
 				0D1B4447D2721F6F62C0758B /* Resources */,
 				8C0F3430996A0780D0CC7675 /* Services */,
 			);
@@ -187,6 +215,10 @@
 				BC8A22C1B32A7B3D795966BA /* AppState.swift in Sources */,
 				67FAF877591DEC7D9291536D /* CameraPermissionService.swift in Sources */,
 				FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */,
+				AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */,
+				13585C7B4B983D2B02646EBA /* GraffitiPicker.swift in Sources */,
+				566F12C40BDD611CB2A7C91D /* GraffitiPlacementController.swift in Sources */,
+				0617BBD9E8DFA4629DC96148 /* GraffitiRenderer.swift in Sources */,
 				CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */,
 				8257BA1E22A5B670B0093C12 /* PlaneDetector.swift in Sources */,
 			);
