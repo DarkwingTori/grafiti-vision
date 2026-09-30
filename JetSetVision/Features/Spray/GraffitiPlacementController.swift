@@ -58,6 +58,19 @@ final class GraffitiPlacementController: ObservableObject {
         place(at: result)
     }
 
+    /// The selection highlight is a UI affordance, not part of the artwork —
+    /// hidden for the duration of an `ARCaptureController` snapshot so it
+    /// doesn't bake into the saved image, then restored after.
+    func hideHighlightForCapture() {
+        guard let id = selectedInstanceID else { return }
+        instances[id]?.highlightEntity.isEnabled = false
+    }
+
+    func restoreHighlightAfterCapture() {
+        guard let id = selectedInstanceID else { return }
+        instances[id]?.highlightEntity.isEnabled = true
+    }
+
     func deleteSelected() {
         guard let id = selectedInstanceID,
               let arView,

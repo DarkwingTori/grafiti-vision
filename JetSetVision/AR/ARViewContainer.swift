@@ -10,6 +10,8 @@ import SwiftUI
 struct ARViewContainer: UIViewRepresentable {
     @ObservedObject var sessionManager: ARSessionManager
     @ObservedObject var placementController: GraffitiPlacementController
+    @ObservedObject var appState: AppState
+    @ObservedObject var captureController: ARCaptureController
 
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
@@ -23,7 +25,8 @@ struct ARViewContainer: UIViewRepresentable {
 
         sessionManager.planeDetector = context.coordinator.planeDetector(for: arView)
         context.coordinator.startRaycasting(on: arView, sessionManager: sessionManager)
-        context.coordinator.configureTapToPlace(on: arView, placementController: placementController)
+        context.coordinator.configureTapToPlace(on: arView, placementController: placementController, appState: appState)
+        captureController.attach(to: arView)
 
         return arView
     }
@@ -40,6 +43,7 @@ struct ARViewContainer: UIViewRepresentable {
         private var lastRaycastTime: TimeInterval = 0
         private let raycastInterval: TimeInterval = 0.2
         private var placementController: GraffitiPlacementController?
+        private weak var appState: AppState?
 
         func planeDetector(for arView: ARView) -> PlaneDetector {
             let detector = PlaneDetector(arView: arView)
@@ -72,9 +76,11 @@ struct ARViewContainer: UIViewRepresentable {
 
         /// Wires a tap recognizer that either selects an existing graffiti
         /// entity or, when the tap lands on bare detected surface, sprays
-        /// the currently selected design there.
-        func configureTapToPlace(on arView: ARView, placementController: GraffitiPlacementController) {
+        /// the currently selected design there. Disabled while in Vision
+        /// Mode, so inspecting detections can't accidentally spray graffiti.
+        func configureTapToPlace(on arView: ARView, placementController: GraffitiPlacementController, appState: AppState) {
             self.placementController = placementController
+            self.appState = appState
             placementController.attach(to: arView)
 
             let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -82,7 +88,7 @@ struct ARViewContainer: UIViewRepresentable {
         }
 
         @objc private func handleTap(_ recognizer: UITapGestureRecognizer) {
-            guard let arView = recognizer.view as? ARView else { return }
+            guard let arView = recognizer.view as? ARView, appState?.mode == .spray else { return }
             placementController?.handleTap(at: recognizer.location(in: arView))
         }
     }

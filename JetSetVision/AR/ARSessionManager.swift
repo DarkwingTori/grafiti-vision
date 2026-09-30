@@ -21,10 +21,15 @@ final class ARSessionManager: NSObject, ObservableObject {
 
     @Published var trackingStatus: TrackingStatus = .searching
     @Published var targetedSurface: SurfaceKind?
+    @Published var sessionError: String?
 
     /// Set by `ARViewContainer` once the RealityKit view exists, so plane
     /// anchor callbacks below can drive visualization.
     weak var planeDetector: PlaneDetector?
+
+    /// Set by `CameraView` so every AR frame can be offered to Vision Mode's
+    /// processor — `VisionProcessor` itself no-ops unless Vision Mode is on.
+    weak var visionProcessor: VisionProcessor?
 }
 
 extension ARSessionManager: ARSessionDelegate {
@@ -36,6 +41,7 @@ extension ARSessionManager: ARSessionDelegate {
             trackingStatus = .limited(reason)
         case .normal:
             trackingStatus = .normal
+            sessionError = nil
         }
     }
 
@@ -60,7 +66,20 @@ extension ARSessionManager: ARSessionDelegate {
         }
     }
 
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        visionProcessor?.consume(frame: frame)
+    }
+
     func session(_ session: ARSession, didFailWithError error: Error) {
         trackingStatus = .searching
+        sessionError = error.localizedDescription
+    }
+
+    func sessionWasInterrupted(_ session: ARSession) {
+        sessionError = "AR SESSION INTERRUPTED"
+    }
+
+    func sessionInterruptionEnded(_ session: ARSession) {
+        sessionError = nil
     }
 }
