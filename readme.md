@@ -181,7 +181,6 @@ Example categories:
 * Typography
 * Patterns
 
-Do NOT use copyrighted Jet Set Radio artwork, characters, logos, fonts, or extracted assets.
 
 Create an original visual identity inspired by:
 
@@ -494,7 +493,6 @@ The visual identity should use:
 * Urban photography
 * Experimental typography
 
-The UI can take inspiration from early-2000s gaming interfaces without copying any specific game's assets.
 
 Potential visual language:
 

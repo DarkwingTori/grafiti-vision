@@ -8,9 +8,14 @@ import UIKit
 /// Tapping an empty detected surface sprays the currently selected
 /// `GraffitiAsset` there: the tap's screen point becomes an AR raycast
 /// against existing plane geometry, and the raycast's `worldTransform`
-/// already carries the surface's orientation (its up-axis matches the
-/// surface normal), so the graffiti naturally faces out from a wall or
-/// lies flat on a floor with no extra rotation math needed. Move/rotate/
+/// already carries the surface's orientation (its local +Y axis matches
+/// the surface normal), so the graffiti naturally faces out from a wall or
+/// lies flat on a floor with no extra rotation math needed — *provided*
+/// the mesh itself is generated with `generatePlane(width:depth:)` (XZ
+/// plane, +Y normal), matching `PlaneDetector`'s convention. The other
+/// overload, `generatePlane(width:height:)` (XY plane, +Z normal), is a
+/// 90° mismatch from what the raycast orientation and RealityKit's
+/// rotation gesture (which spins around local Y) both assume. Move/rotate/
 /// scale are handled by RealityKit's built-in entity gestures rather than
 /// custom gesture code — these require both a `CollisionComponent` (a
 /// physical shape to hit-test against) and an `InputTargetComponent`
@@ -85,7 +90,7 @@ final class GraffitiPlacementController: ObservableObject {
 
         let width: Float = 0.3
         let height = width / Float(selectedAsset.aspectRatio)
-        let mesh = MeshResource.generatePlane(width: width, height: height)
+        let mesh = MeshResource.generatePlane(width: width, depth: height)
         let model = ModelEntity(mesh: mesh, materials: [material])
 
         let id = UUID()
@@ -122,13 +127,14 @@ final class GraffitiPlacementController: ObservableObject {
     /// as a selection outline/glow. Hidden until its instance is selected.
     private func makeHighlight(width: Float, height: Float) -> ModelEntity {
         let outlineScale: Float = 1.15
-        let mesh = MeshResource.generatePlane(width: width * outlineScale, height: height * outlineScale)
+        let mesh = MeshResource.generatePlane(width: width * outlineScale, depth: height * outlineScale)
         var material = UnlitMaterial(color: .white.withAlphaComponent(0.55))
         material.blending = .transparent(opacity: .init(floatLiteral: 1.0))
         let highlight = ModelEntity(mesh: mesh, materials: [material])
-        // Nudged behind the graffiti along the surface normal so it reads as
-        // an outline/glow rather than fighting the artwork for the same depth.
-        highlight.position = SIMD3(0, 0, -0.001)
+        // Nudged behind the graffiti along the surface normal (local +Y,
+        // matching the XZ-plane mesh convention above) so it reads as an
+        // outline/glow rather than fighting the artwork for the same depth.
+        highlight.position = SIMD3(0, -0.001, 0)
         highlight.isEnabled = false
         return highlight
     }
