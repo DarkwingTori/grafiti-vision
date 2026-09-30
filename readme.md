@@ -12,7 +12,13 @@ The project is primarily a **computer vision + on-device ML + AR systems project
 
 ## Status
 
-**Phase 3 (Graffiti Placement) complete.** Users can pick a graffiti design from the bottom picker, tap a detected wall/floor to spray it there (anchored via AR raycast, oriented to the surface), then move/rotate/scale it with standard touch gestures, and delete the selected piece. Vision Mode, capture, and gallery are not implemented yet — see the phase plan in `claude.md` for what's next.
+**Phases 1–9 complete — full MVP.** Users can pick a graffiti design, tap a detected wall/floor to spray it there (anchored via AR raycast, oriented to the surface), move/rotate/scale/delete it, switch to Vision Mode to see live Apple Vision detections (real scene classification + person detection, no fabricated labels), capture the AR scene as a still image, and browse/delete saved captures in the gallery.
+
+**Vision Mode** runs `VNClassifyImageRequest` (general scene/object classification) and `VNDetectHumanRectanglesRequest` (person detection with a real bounding box) against `ARFrame.capturedImage`, throttled to ~8fps and only while Vision Mode is active, off the main thread. Whatever it shows came from an actual Vision result — if nothing is recognized, it says so rather than guessing.
+
+**Capture** uses RealityKit's `ARView.snapshot(saveToHDR:)`, which composites the live camera feed with rendered graffiti into one image. **Persistence** is a Codable JSON index (`CaptureStore`) plus JPEGs in the app's Documents directory — no database framework, since a personal collection of captures with no relational querying doesn't need one.
+
+Graffiti artwork lives in `Assets.xcassets` as `Graffiti_*` image sets, sourced from `~/Desktop/graffiti`. Per the developer, Sega permits non-commercial personal use of this Jet Set Radio–style artwork — this has not been independently verified, so treat this build as personal/local use only unless that's confirmed further before any public sharing, demo, or distribution.
 
 Graffiti artwork lives in `Assets.xcassets` as `Graffiti_*` image sets, sourced from `~/Desktop/graffiti`. Per the developer, Sega permits non-commercial personal use of this Jet Set Radio–style artwork — this has not been independently verified, so treat this build as personal/local use only unless that's confirmed further before any public sharing, demo, or distribution.
 
