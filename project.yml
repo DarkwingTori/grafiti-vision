@@ -16,7 +16,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.torienmitchell.JetSetVision
         SWIFT_VERSION: "5.0"
         CODE_SIGN_STYLE: Automatic
-        DEVELOPMENT_TEAM: ""
+        DEVELOPMENT_TEAM: "3Q562WU9SB"
         TARGETED_DEVICE_FAMILY: "1"
         ENABLE_PREVIEWS: YES
     info:

@@ -26,7 +26,7 @@
 		3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiPicker.swift; sourceTree = "<group>"; };
 		668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionService.swift; sourceTree = "<group>"; };
 		75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
-		7E1A43F84B325FD47EA382FF /* JetSetVision.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JetSetVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E1A43F84B325FD47EA382FF /* JetSetVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JetSetVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A58F172583C5A0F1E03E6E8C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A64616CF712527AC05A31774 /* JetSetVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetSetVisionApp.swift; sourceTree = "<group>"; };
 		A8FAC536861D879E288FDDED /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -170,7 +170,6 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					F90CB802F11B877D26FCAE7B = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -352,7 +351,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QS2G888PCQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JetSetVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -373,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QS2G888PCQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JetSetVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
