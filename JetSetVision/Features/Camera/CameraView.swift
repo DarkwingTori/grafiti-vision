@@ -17,6 +17,7 @@ struct CameraView: View {
     @State private var permissionStatus: CameraPermissionService.Status = .notDetermined
     @State private var showGallery = false
     @State private var showCaptureFlash = false
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -30,6 +31,15 @@ struct CameraView: View {
             }
         }
         .onAppear(perform: resolvePermission)
+        .onChange(of: scenePhase) { _, phase in
+            // Save whenever the app leaves the foreground, not just on
+            // explicit quit — backgrounding is the reliable signal on iOS,
+            // since a process can be killed outright with no further
+            // notice once it's backgrounded.
+            if phase != .active {
+                sessionManager.saveWorldMap()
+            }
+        }
     }
 
     private var arContent: some View {
@@ -241,7 +251,7 @@ struct CameraView: View {
         case .initializing:
             return "STARTING UP..."
         case .relocalizing:
-            return "RELOCALIZING..."
+            return sessionManager.isRestoringPreviousSession ? "RESTORING YOUR LAST SESSION..." : "RELOCALIZING..."
         @unknown default:
             return "MOVE YOUR PHONE SLOWLY"
         }

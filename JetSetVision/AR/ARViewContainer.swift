@@ -19,11 +19,19 @@ struct ARViewContainer: UIViewRepresentable {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal, .vertical]
         configuration.environmentTexturing = .automatic
+        // Relocalizing into a previously-saved world map is what lets
+        // graffiti placed last session reappear — ARKit redelivers each of
+        // its anchors through the usual didAdd callback once it does.
+        let savedWorldMap = WorldMapStore.load()
+        configuration.initialWorldMap = savedWorldMap
 
         arView.session.delegate = sessionManager
         arView.session.run(configuration)
 
+        sessionManager.session = arView.session
+        sessionManager.isRestoringPreviousSession = savedWorldMap != nil
         sessionManager.planeDetector = context.coordinator.planeDetector(for: arView)
+        sessionManager.placementController = placementController
         context.coordinator.startRaycasting(on: arView, sessionManager: sessionManager)
         context.coordinator.configureTapToPlace(on: arView, placementController: placementController, appState: appState)
         captureController.attach(to: arView)

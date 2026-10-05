@@ -22,12 +22,25 @@ import UIKit
 /// (marking the entity as touch-interactive); dropping either silently
 /// disables dragging/twisting/pinching. Tapping an existing piece selects
 /// it, showing a highlight outline and enabling the delete button.
+///
+/// A placement is a real `ARAnchor` registered with the `ARSession` (named
+/// `"graffiti|<assetID>"`), not just a RealityKit-only anchor — that's what
+/// lets `WorldMapStore` capture it in a saved `ARWorldMap` and have it come
+/// back as a fresh `didAdd` callback (via `handleAddedAnchor`) once a later
+/// session relocalizes into the same physical space. Building the
+/// RealityKit entity happens in that one callback for both a brand-new
+/// placement and a restored one — `pendingPlacementAnchorID` is how the
+/// freshly-placed case is told apart from a silent restoration, so only a
+/// placement the user just made gets selected/haptic feedback.
 final class GraffitiPlacementController: ObservableObject {
     private struct Instance {
+        let anchor: ARAnchor
         let anchorEntity: AnchorEntity
         let modelEntity: ModelEntity
         let highlightEntity: ModelEntity
     }
+
+    private static let anchorNamePrefix = "graffiti|"
 
     /// Placed graffiti can be pinched between 0.3x and 3x its original size
     /// (roughly 9cm–90cm wide) so it can't be shrunk to nothing or blown up
@@ -41,6 +54,7 @@ final class GraffitiPlacementController: ObservableObject {
     private var instances: [UUID: Instance] = [:]
     private var selectedInstanceID: UUID?
     private var scaleGestureRecognizers: [ObjectIdentifier: EntityScaleGestureRecognizer] = [:]
+    private var pendingPlacementAnchorID: UUID?
 
     func attach(to arView: ARView) {
         self.arView = arView
@@ -81,20 +95,38 @@ final class GraffitiPlacementController: ObservableObject {
               let arView,
               let instance = instances.removeValue(forKey: id) else { return }
         arView.scene.removeAnchor(instance.anchorEntity)
+        arView.session.remove(anchor: instance.anchor)
         selectedInstanceID = nil
         hasSelection = false
     }
 
     private func place(at result: ARRaycastResult) {
-        guard let arView, let material = GraffitiRenderer.makeMaterial(for: selectedAsset) else { return }
+        guard arView != nil else { return }
+
+        let anchor = ARAnchor(name: Self.anchorNamePrefix + selectedAsset.id, transform: result.worldTransform)
+        pendingPlacementAnchorID = anchor.identifier
+        arView?.session.add(anchor: anchor)
+    }
+
+    /// Called by `ARSessionManager` for every non-plane anchor ARKit adds —
+    /// a brand-new placement (added a moment ago, just above) or one
+    /// restored from a loaded `ARWorldMap` after relocalizing. Builds the
+    /// RealityKit entity identically either way.
+    func handleAddedAnchor(_ anchor: ARAnchor) {
+        guard let arView,
+              let name = anchor.name,
+              name.hasPrefix(Self.anchorNamePrefix) else { return }
+
+        let assetID = String(name.dropFirst(Self.anchorNamePrefix.count))
+        guard let asset = resolveAsset(id: assetID),
+              let material = GraffitiRenderer.makeMaterial(for: asset) else { return }
 
         let width: Float = 0.3
-        let height = width / Float(selectedAsset.aspectRatio)
+        let height = width / Float(asset.aspectRatio)
         let mesh = MeshResource.generatePlane(width: width, depth: height)
         let model = ModelEntity(mesh: mesh, materials: [material])
 
-        let id = UUID()
-        model.name = id.uuidString
+        model.name = anchor.identifier.uuidString
         model.generateCollisionShapes(recursive: false)
         // RealityKit's entity-manipulation gestures (installGestures below)
         // need this to treat the entity as touch-interactive; it's part of
@@ -106,7 +138,7 @@ final class GraffitiPlacementController: ObservableObject {
 
         let highlight = makeHighlight(width: width, height: height)
 
-        let anchorEntity = AnchorEntity(world: result.worldTransform)
+        let anchorEntity = AnchorEntity(anchor: anchor)
         anchorEntity.addChild(highlight)
         anchorEntity.addChild(model)
         arView.scene.addAnchor(anchorEntity)
@@ -117,10 +149,24 @@ final class GraffitiPlacementController: ObservableObject {
             scaleGestureRecognizers[ObjectIdentifier(model)] = scaleRecognizer
         }
 
-        instances[id] = Instance(anchorEntity: anchorEntity, modelEntity: model, highlightEntity: highlight)
-        select(id)
+        instances[anchor.identifier] = Instance(anchor: anchor, anchorEntity: anchorEntity, modelEntity: model, highlightEntity: highlight)
 
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        if pendingPlacementAnchorID == anchor.identifier {
+            pendingPlacementAnchorID = nil
+            select(anchor.identifier)
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        }
+    }
+
+    /// Bundled designs live in the static library by id; custom stickers
+    /// are looked up from `StickerStore` by the UUID encoded in their id.
+    private func resolveAsset(id: String) -> GraffitiAsset? {
+        if let bundled = GraffitiAsset.library.first(where: { $0.id == id }) {
+            return bundled
+        }
+        return StickerStore.shared.load()
+            .first { "sticker:\($0.id.uuidString)" == id }?
+            .asGraffitiAsset()
     }
 
     /// A slightly larger, translucent plane behind the graffiti that reads

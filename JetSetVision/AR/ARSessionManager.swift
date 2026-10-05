@@ -30,6 +30,26 @@ final class ARSessionManager: NSObject, ObservableObject {
     /// Set by `CameraView` so every AR frame can be offered to Vision Mode's
     /// processor — `VisionProcessor` itself no-ops unless Vision Mode is on.
     weak var visionProcessor: VisionProcessor?
+
+    /// Set by `ARViewContainer` so non-plane anchors (graffiti placements,
+    /// including ones restored from a loaded `ARWorldMap`) can be forwarded
+    /// to build or rebuild their RealityKit entity.
+    weak var placementController: GraffitiPlacementController?
+
+    /// Set by `ARViewContainer` so `CameraView` can trigger a world-map
+    /// save (e.g. on backgrounding) without needing its own reference to
+    /// the underlying `ARView`.
+    weak var session: ARSession?
+
+    /// True when this session was started with a previously-saved world
+    /// map, so the UI can say "restoring your last session" instead of the
+    /// generic relocalizing message while ARKit works to match it.
+    @Published var isRestoringPreviousSession = false
+
+    func saveWorldMap() {
+        guard let session else { return }
+        WorldMapStore.save(from: session)
+    }
 }
 
 extension ARSessionManager: ARSessionDelegate {
@@ -47,8 +67,11 @@ extension ARSessionManager: ARSessionDelegate {
 
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors {
-            guard let plane = anchor as? ARPlaneAnchor else { continue }
-            planeDetector?.addPlane(plane)
+            if let plane = anchor as? ARPlaneAnchor {
+                planeDetector?.addPlane(plane)
+            } else {
+                placementController?.handleAddedAnchor(anchor)
+            }
         }
     }
 
