@@ -12,7 +12,7 @@ enum GraffitiRenderer {
             return cached
         }
 
-        guard let uiImage = UIImage(named: asset.imageName),
+        guard let uiImage = loadImage(for: asset.source),
               let cgImage = uiImage.cgImage,
               let texture = try? TextureResource.generate(from: cgImage, options: .init(semantic: .color)) else {
             return nil
@@ -24,5 +24,21 @@ enum GraffitiRenderer {
 
         cache[asset.id] = material
         return material
+    }
+
+    /// Clears any cached material for the given asset id — used when a
+    /// custom sticker is deleted, so a later re-add with the same id (rare,
+    /// but possible if ids ever collide) doesn't serve a stale texture.
+    static func invalidateCache(for assetID: String) {
+        cache.removeValue(forKey: assetID)
+    }
+
+    private static func loadImage(for source: GraffitiAsset.Source) -> UIImage? {
+        switch source {
+        case .bundled(let imageName):
+            return UIImage(named: imageName)
+        case .custom(let fileURL):
+            return UIImage(contentsOfFile: fileURL.path)
+        }
     }
 }

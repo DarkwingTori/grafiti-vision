@@ -9,14 +9,18 @@
 /* Begin PBXBuildFile section */
 		0617BBD9E8DFA4629DC96148 /* GraffitiRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */; };
 		13585C7B4B983D2B02646EBA /* GraffitiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */; };
+		26BDA514420B160E7A56C24A /* CustomSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFCAF8592C8568393A55E4 /* CustomSticker.swift */; };
 		2B7CFB5699CD7EFB28390A6A /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */; };
+		42774DBB4F774D3D95D3F65B /* WorldMapStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141F496D3AC1B6FC54048EA9 /* WorldMapStore.swift */; };
 		45D49E73BF87498E04DC22E4 /* VisionModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A5F925A2ECDEFB088C6716 /* VisionModeView.swift */; };
 		51F5394A4F084F0D08BF2B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8F2A53658694255AB236EA /* Assets.xcassets */; };
+		5332B6A66A0A3E6C2315C692 /* StickerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BA99F0E8CD296408735875 /* StickerStore.swift */; };
 		566F12C40BDD611CB2A7C91D /* GraffitiPlacementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EDBDDAFA8F4131D92CFB3E /* GraffitiPlacementController.swift */; };
 		6205A927EA93D8D409F10F58 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */; };
 		67FAF877591DEC7D9291536D /* CameraPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */; };
 		7712F69072A5F67DAC4156FD /* ARCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE593B51BE4C3C335E806A7 /* ARCaptureController.swift */; };
 		8257BA1E22A5B670B0093C12 /* PlaneDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */; };
+		92E8048EA5199E0A20DAACA7 /* StickerExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E0A1DBDD489228314F707 /* StickerExtractor.swift */; };
 		9DAF2A26D872DB13FFCC8642 /* VisionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D4CDAB6B5A725AA5D0257D /* VisionProcessor.swift */; };
 		AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */; };
 		BC8A22C1B32A7B3D795966BA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58F172583C5A0F1E03E6E8C /* AppState.swift */; };
@@ -29,12 +33,15 @@
 
 /* Begin PBXFileReference section */
 		01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiRenderer.swift; sourceTree = "<group>"; };
+		045E0A1DBDD489228314F707 /* StickerExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerExtractor.swift; sourceTree = "<group>"; };
+		141F496D3AC1B6FC54048EA9 /* WorldMapStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapStore.swift; sourceTree = "<group>"; };
 		35491C189E58754CF5F291D0 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiPicker.swift; sourceTree = "<group>"; };
 		59D4CDAB6B5A725AA5D0257D /* VisionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionProcessor.swift; sourceTree = "<group>"; };
 		668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionService.swift; sourceTree = "<group>"; };
 		75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		7E1A43F84B325FD47EA382FF /* JetSetVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JetSetVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95BA99F0E8CD296408735875 /* StickerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerStore.swift; sourceTree = "<group>"; };
 		A58F172583C5A0F1E03E6E8C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A64616CF712527AC05A31774 /* JetSetVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetSetVisionApp.swift; sourceTree = "<group>"; };
 		A8FAC536861D879E288FDDED /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -43,6 +50,7 @@
 		C9CC003A7C2FD22185C2809D /* CaptureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureStore.swift; sourceTree = "<group>"; };
 		D4EDBDDAFA8F4131D92CFB3E /* GraffitiPlacementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiPlacementController.swift; sourceTree = "<group>"; };
 		DB8F2A53658694255AB236EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DEDFCAF8592C8568393A55E4 /* CustomSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSticker.swift; sourceTree = "<group>"; };
 		E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 		EBE593B51BE4C3C335E806A7 /* ARCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCaptureController.swift; sourceTree = "<group>"; };
 		EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetector.swift; sourceTree = "<group>"; };
@@ -83,6 +91,7 @@
 				E8F98995DCB51D0436C677D9 /* ARViewContainer.swift */,
 				EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */,
 				59D4CDAB6B5A725AA5D0257D /* VisionProcessor.swift */,
+				141F496D3AC1B6FC54048EA9 /* WorldMapStore.swift */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -110,6 +119,8 @@
 				668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */,
 				C9CC003A7C2FD22185C2809D /* CaptureStore.swift */,
 				01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */,
+				045E0A1DBDD489228314F707 /* StickerExtractor.swift */,
+				95BA99F0E8CD296408735875 /* StickerStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -143,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				ED2A3327ED8755E4ED570F21 /* Capture.swift */,
+				DEDFCAF8592C8568393A55E4 /* CustomSticker.swift */,
 				B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */,
 			);
 			path = Models;
@@ -251,6 +263,7 @@
 				FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */,
 				C9517018B9EB12649BA02638 /* Capture.swift in Sources */,
 				F8E2B3E3D003BCAF71EC2645 /* CaptureStore.swift in Sources */,
+				26BDA514420B160E7A56C24A /* CustomSticker.swift in Sources */,
 				CAAF61421F70FC2DE4FD2765 /* GalleryView.swift in Sources */,
 				AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */,
 				13585C7B4B983D2B02646EBA /* GraffitiPicker.swift in Sources */,
@@ -258,8 +271,11 @@
 				0617BBD9E8DFA4629DC96148 /* GraffitiRenderer.swift in Sources */,
 				CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */,
 				8257BA1E22A5B670B0093C12 /* PlaneDetector.swift in Sources */,
+				92E8048EA5199E0A20DAACA7 /* StickerExtractor.swift in Sources */,
+				5332B6A66A0A3E6C2315C692 /* StickerStore.swift in Sources */,
 				45D49E73BF87498E04DC22E4 /* VisionModeView.swift in Sources */,
 				9DAF2A26D872DB13FFCC8642 /* VisionProcessor.swift in Sources */,
+				42774DBB4F774D3D95D3F65B /* WorldMapStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
