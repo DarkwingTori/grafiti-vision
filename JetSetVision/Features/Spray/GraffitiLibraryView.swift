@@ -110,6 +110,8 @@ struct GraffitiLibraryView: View {
                 .padding(.vertical, 6)
                 .background(isSelected ? Color.white : Color.white.opacity(0.15), in: Capsule())
         }
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
+        .animation(.easeInOut(duration: 0.15), value: isSelected)
     }
 
     private func row(for asset: GraffitiAsset) -> some View {

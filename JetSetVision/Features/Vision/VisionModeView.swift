@@ -16,9 +16,12 @@ struct VisionModeView: View {
             }
         }
         .allowsHitTesting(false)
+        .animation(.easeOut(duration: 0.15), value: processor.personBoundingBox)
         .overlay(alignment: .top) {
             detectionList
                 .padding(.top, 12)
+                .animation(.easeInOut(duration: 0.2), value: processor.topClassifications)
+                .animation(.easeInOut(duration: 0.2), value: processor.personConfidence)
         }
     }
 

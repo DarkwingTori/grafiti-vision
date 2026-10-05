@@ -16,7 +16,7 @@ import Vision
 /// `CGImagePropertyOrientation` below is the correct, standard mapping from
 /// sensor space into what Vision expects for a portrait UI.
 final class VisionProcessor: ObservableObject {
-    struct Classification: Identifiable {
+    struct Classification: Identifiable, Equatable {
         let id = UUID()
         let label: String
         let confidence: Float

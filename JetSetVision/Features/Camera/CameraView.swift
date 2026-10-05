@@ -27,7 +27,11 @@ struct CameraView: View {
             case .denied:
                 permissionDeniedView
             case .notDetermined:
-                Color.black.ignoresSafeArea()
+                ZStack {
+                    Color.black.ignoresSafeArea()
+                    ProgressView()
+                        .tint(.white)
+                }
             }
         }
         .onAppear(perform: resolvePermission)
@@ -58,35 +62,42 @@ struct CameraView: View {
 
             if appState.mode == .vision {
                 VisionModeView(processor: visionProcessor)
+                    .transition(.opacity)
             }
 
             if placementController.hasSelection && appState.mode == .spray {
                 deleteButton
+                    .transition(.scale.combined(with: .opacity))
             }
 
             topBar
 
             VStack(spacing: 16) {
                 if let sessionError = sessionManager.sessionError {
-                    errorBanner(sessionError)
+                    ErrorBanner(message: sessionError)
                 } else if let captureError = captureController.lastError {
-                    errorBanner(captureError)
+                    ErrorBanner(message: captureError)
                 } else {
                     statusBanner
                 }
 
                 if appState.mode == .spray {
                     GraffitiPicker(controller: placementController)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
 
                 captureButton
             }
             .padding(.bottom, 32)
+            .animation(.easeInOut(duration: 0.2), value: sessionManager.sessionError)
+            .animation(.easeInOut(duration: 0.2), value: captureController.lastError)
 
             if showCaptureFlash {
                 Color.white.opacity(0.85).ignoresSafeArea()
             }
         }
+        .animation(.easeInOut(duration: 0.25), value: appState.mode)
+        .animation(.easeInOut(duration: 0.2), value: placementController.hasSelection)
         .sheet(isPresented: $showGallery) {
             GalleryView()
         }
@@ -202,15 +213,7 @@ struct CameraView: View {
         .padding(.vertical, 12)
         .background(.black.opacity(0.55), in: Capsule())
         .animation(.easeInOut(duration: 0.2), value: statusTitle)
-    }
-
-    private func errorBanner(_ message: String) -> some View {
-        Text(message)
-            .font(.system(size: 13, weight: .bold, design: .monospaced))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
-            .background(.red.opacity(0.75), in: Capsule())
+        .accessibilityElement(children: .combine)
     }
 
     private var statusTitle: String {

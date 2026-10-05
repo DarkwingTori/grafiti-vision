@@ -23,12 +23,7 @@ struct GraffitiPicker: View {
     var body: some View {
         VStack(spacing: 6) {
             if let extractionError {
-                Text(extractionError)
-                    .font(.system(size: 11, weight: .bold, design: .monospaced))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 6)
-                    .background(.red.opacity(0.75), in: Capsule())
+                ErrorBanner(message: extractionError)
             }
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -42,6 +37,7 @@ struct GraffitiPicker: View {
                 .padding(.horizontal, 16)
             }
         }
+        .animation(.easeInOut(duration: 0.2), value: extractionError)
         .onAppear(perform: refreshLineup)
         .onChange(of: photoPickerItem) { _, item in
             guard let item else { return }

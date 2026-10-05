@@ -29,6 +29,7 @@
 		C9517018B9EB12649BA02638 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2A3327ED8755E4ED570F21 /* Capture.swift */; };
 		CAAF61421F70FC2DE4FD2765 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35491C189E58754CF5F291D0 /* GalleryView.swift */; };
 		CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64616CF712527AC05A31774 /* JetSetVisionApp.swift */; };
+		DA522620308369CD415C47EF /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5C3A392ADDA9F31703E69F /* ErrorBanner.swift */; };
 		F8E2B3E3D003BCAF71EC2645 /* CaptureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC003A7C2FD22185C2809D /* CaptureStore.swift */; };
 		FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FAC536861D879E288FDDED /* CameraView.swift */; };
 		FDCB6F159E864CEDE16EDEA3 /* GraffitiLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DFAAABE4AC0EB0ACD51FE /* GraffitiLibraryView.swift */; };
@@ -62,6 +63,7 @@
 		EC15D5B51B8A1C6816F2B17E /* PlaneDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetector.swift; sourceTree = "<group>"; };
 		ED2A3327ED8755E4ED570F21 /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
 		F8A5F925A2ECDEFB088C6716 /* VisionModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionModeView.swift; sourceTree = "<group>"; };
+		FC5C3A392ADDA9F31703E69F /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -169,6 +171,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E224EE21AB087E3727DE810F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FC5C3A392ADDA9F31703E69F /* ErrorBanner.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		E3B0A579FAC704ADCAA906D9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +200,7 @@
 				C1141D4E78D720AD613B0FF4 /* Models */,
 				0D1B4447D2721F6F62C0758B /* Resources */,
 				8C0F3430996A0780D0CC7675 /* Services */,
+				E224EE21AB087E3727DE810F /* UI */,
 			);
 			path = JetSetVision;
 			sourceTree = "<group>";
@@ -273,6 +284,7 @@
 				C9517018B9EB12649BA02638 /* Capture.swift in Sources */,
 				F8E2B3E3D003BCAF71EC2645 /* CaptureStore.swift in Sources */,
 				26BDA514420B160E7A56C24A /* CustomSticker.swift in Sources */,
+				DA522620308369CD415C47EF /* ErrorBanner.swift in Sources */,
 				CAAF61421F70FC2DE4FD2765 /* GalleryView.swift in Sources */,
 				AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */,
 				BFAFF01F2CFD30928F7C08A6 /* GraffitiCategory.swift in Sources */,
