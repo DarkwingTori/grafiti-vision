@@ -11,6 +11,7 @@
 		13585C7B4B983D2B02646EBA /* GraffitiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */; };
 		26BDA514420B160E7A56C24A /* CustomSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFCAF8592C8568393A55E4 /* CustomSticker.swift */; };
 		2B7CFB5699CD7EFB28390A6A /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */; };
+		33E5A652258675FD2E5399E8 /* GraffitiLibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BFA687410D6CA8A9EB548 /* GraffitiLibraryStore.swift */; };
 		42774DBB4F774D3D95D3F65B /* WorldMapStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141F496D3AC1B6FC54048EA9 /* WorldMapStore.swift */; };
 		45D49E73BF87498E04DC22E4 /* VisionModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A5F925A2ECDEFB088C6716 /* VisionModeView.swift */; };
 		51F5394A4F084F0D08BF2B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8F2A53658694255AB236EA /* Assets.xcassets */; };
@@ -24,23 +25,28 @@
 		9DAF2A26D872DB13FFCC8642 /* VisionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D4CDAB6B5A725AA5D0257D /* VisionProcessor.swift */; };
 		AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */; };
 		BC8A22C1B32A7B3D795966BA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58F172583C5A0F1E03E6E8C /* AppState.swift */; };
+		BFAFF01F2CFD30928F7C08A6 /* GraffitiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389862FE5E5A8075A14A982 /* GraffitiCategory.swift */; };
 		C9517018B9EB12649BA02638 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2A3327ED8755E4ED570F21 /* Capture.swift */; };
 		CAAF61421F70FC2DE4FD2765 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35491C189E58754CF5F291D0 /* GalleryView.swift */; };
 		CD0001E7DD2E1BB4962F5EE1 /* JetSetVisionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64616CF712527AC05A31774 /* JetSetVisionApp.swift */; };
 		F8E2B3E3D003BCAF71EC2645 /* CaptureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC003A7C2FD22185C2809D /* CaptureStore.swift */; };
 		FC74EFB6EF8D450910D203D7 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FAC536861D879E288FDDED /* CameraView.swift */; };
+		FDCB6F159E864CEDE16EDEA3 /* GraffitiLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934DFAAABE4AC0EB0ACD51FE /* GraffitiLibraryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiRenderer.swift; sourceTree = "<group>"; };
+		0389862FE5E5A8075A14A982 /* GraffitiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiCategory.swift; sourceTree = "<group>"; };
 		045E0A1DBDD489228314F707 /* StickerExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerExtractor.swift; sourceTree = "<group>"; };
 		141F496D3AC1B6FC54048EA9 /* WorldMapStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldMapStore.swift; sourceTree = "<group>"; };
+		184BFA687410D6CA8A9EB548 /* GraffitiLibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiLibraryStore.swift; sourceTree = "<group>"; };
 		35491C189E58754CF5F291D0 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiPicker.swift; sourceTree = "<group>"; };
 		59D4CDAB6B5A725AA5D0257D /* VisionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionProcessor.swift; sourceTree = "<group>"; };
 		668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionService.swift; sourceTree = "<group>"; };
 		75F351C06B1DE3677A917FA8 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		7E1A43F84B325FD47EA382FF /* JetSetVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JetSetVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		934DFAAABE4AC0EB0ACD51FE /* GraffitiLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiLibraryView.swift; sourceTree = "<group>"; };
 		95BA99F0E8CD296408735875 /* StickerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerStore.swift; sourceTree = "<group>"; };
 		A58F172583C5A0F1E03E6E8C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A64616CF712527AC05A31774 /* JetSetVisionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetSetVisionApp.swift; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 		86F1E5E2BF83DE71F37C8C16 /* Spray */ = {
 			isa = PBXGroup;
 			children = (
+				934DFAAABE4AC0EB0ACD51FE /* GraffitiLibraryView.swift */,
 				3E22A6B7787B32B79C09787D /* GraffitiPicker.swift */,
 				D4EDBDDAFA8F4131D92CFB3E /* GraffitiPlacementController.swift */,
 			);
@@ -118,6 +125,7 @@
 			children = (
 				668C4ECA4A48B56E96D50E24 /* CameraPermissionService.swift */,
 				C9CC003A7C2FD22185C2809D /* CaptureStore.swift */,
+				184BFA687410D6CA8A9EB548 /* GraffitiLibraryStore.swift */,
 				01ED97859A09EB2032F996F6 /* GraffitiRenderer.swift */,
 				045E0A1DBDD489228314F707 /* StickerExtractor.swift */,
 				95BA99F0E8CD296408735875 /* StickerStore.swift */,
@@ -156,6 +164,7 @@
 				ED2A3327ED8755E4ED570F21 /* Capture.swift */,
 				DEDFCAF8592C8568393A55E4 /* CustomSticker.swift */,
 				B6CBAD6B11C4D3027133218A /* GraffitiAsset.swift */,
+				0389862FE5E5A8075A14A982 /* GraffitiCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -266,6 +275,9 @@
 				26BDA514420B160E7A56C24A /* CustomSticker.swift in Sources */,
 				CAAF61421F70FC2DE4FD2765 /* GalleryView.swift in Sources */,
 				AD0F7FEDD5EF8BEFF7305CE3 /* GraffitiAsset.swift in Sources */,
+				BFAFF01F2CFD30928F7C08A6 /* GraffitiCategory.swift in Sources */,
+				33E5A652258675FD2E5399E8 /* GraffitiLibraryStore.swift in Sources */,
+				FDCB6F159E864CEDE16EDEA3 /* GraffitiLibraryView.swift in Sources */,
 				13585C7B4B983D2B02646EBA /* GraffitiPicker.swift in Sources */,
 				566F12C40BDD611CB2A7C91D /* GraffitiPlacementController.swift in Sources */,
 				0617BBD9E8DFA4629DC96148 /* GraffitiRenderer.swift in Sources */,

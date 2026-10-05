@@ -3,13 +3,22 @@ import SwiftUI
 
 /// Horizontal strip for choosing which graffiti design to spray next —
 /// the built-in designs, any custom photo-cutout stickers the user has
-/// made, and a "+" button to make a new one.
+/// made, a "+" button to make a new one, and a manage-library button.
+/// The visible lineup, its order, and whether it's shuffled all come from
+/// `GraffitiLibraryStore`, not a hardcoded list.
 struct GraffitiPicker: View {
     @ObservedObject var controller: GraffitiPlacementController
+    @ObservedObject private var libraryStore = GraffitiLibraryStore.shared
     @State private var customStickers: [GraffitiAsset] = StickerStore.shared.load().compactMap { $0.asGraffitiAsset() }
+    @State private var lineup: [GraffitiAsset] = []
     @State private var photoPickerItem: PhotosPickerItem?
     @State private var isExtracting = false
     @State private var extractionError: String?
+    @State private var showManageLibrary = false
+
+    private var allAssets: [GraffitiAsset] {
+        GraffitiAsset.library + customStickers
+    }
 
     var body: some View {
         VStack(spacing: 6) {
@@ -24,21 +33,35 @@ struct GraffitiPicker: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    ForEach(GraffitiAsset.library) { asset in
-                        thumbnailButton(for: asset)
-                    }
-                    ForEach(customStickers) { asset in
+                    ForEach(lineup) { asset in
                         thumbnailButton(for: asset)
                     }
                     addStickerButton
+                    manageLibraryButton
                 }
                 .padding(.horizontal, 16)
             }
         }
+        .onAppear(perform: refreshLineup)
         .onChange(of: photoPickerItem) { _, item in
             guard let item else { return }
             Task { await extractSticker(from: item) }
         }
+        .onChange(of: showManageLibrary) { _, isPresented in
+            guard !isPresented else { return }
+            // The manage sheet may have hidden/reordered/deleted designs —
+            // refresh both the sticker list and the resolved lineup.
+            customStickers = StickerStore.shared.load().compactMap { $0.asGraffitiAsset() }
+            refreshLineup()
+        }
+        .sheet(isPresented: $showManageLibrary) {
+            GraffitiLibraryView()
+        }
+    }
+
+    private func refreshLineup() {
+        let resolved = libraryStore.resolvedLineup(from: allAssets)
+        lineup = libraryStore.isRandomized ? resolved.shuffled() : resolved
     }
 
     private func thumbnailButton(for asset: GraffitiAsset) -> some View {
@@ -92,6 +115,22 @@ struct GraffitiPicker: View {
         .accessibilityLabel("Add sticker from photo")
     }
 
+    private var manageLibraryButton: some View {
+        Button {
+            showManageLibrary = true
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(.black.opacity(0.45))
+                    .frame(width: 56, height: 56)
+                Image(systemName: "slider.horizontal.3")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(.white)
+            }
+        }
+        .accessibilityLabel("Manage graffiti library")
+    }
+
     private func extractSticker(from item: PhotosPickerItem) async {
         isExtracting = true
         extractionError = nil
@@ -114,6 +153,7 @@ struct GraffitiPicker: View {
             }
             customStickers.insert(asset, at: 0)
             controller.selectedAsset = asset
+            refreshLineup()
         } catch StickerExtractor.ExtractionError.noSubjectFound {
             extractionError = "NO SUBJECT FOUND — TRY ANOTHER PHOTO"
         } catch {
