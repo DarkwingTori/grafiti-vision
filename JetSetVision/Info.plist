@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Jet Set Vision uses your camera to detect real-world surfaces and place augmented-reality graffiti on them.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Jet Set Vision saves your captured creations to Photos when you choose to.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>

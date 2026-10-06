@@ -26,5 +26,6 @@ targets:
         UIRequiredDeviceCapabilities:
           - arkit
         NSCameraUsageDescription: "Jet Set Vision uses your camera to detect real-world surfaces and place augmented-reality graffiti on them."
+        NSPhotoLibraryAddUsageDescription: "Jet Set Vision saves your captured creations to Photos when you choose to."
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait

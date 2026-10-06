@@ -80,17 +80,34 @@ private struct CaptureDetailView: View {
     let capture: Capture
     let onDelete: () -> Void
     @Environment(\.dismiss) private var dismiss
+    @State private var toastMessage: String?
+    @State private var toastIsError = false
+
+    private var image: UIImage? {
+        CaptureStore.shared.image(for: capture)
+    }
 
     var body: some View {
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .bottom) {
                 Color.black.ignoresSafeArea()
-                if let image = CaptureStore.shared.image(for: capture) {
+                if let image {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
+
+                if let toastMessage {
+                    if toastIsError {
+                        ErrorBanner(message: toastMessage)
+                            .padding(.bottom, 24)
+                    } else {
+                        SuccessBanner(message: toastMessage)
+                            .padding(.bottom, 24)
+                    }
+                }
             }
+            .animation(.easeInOut(duration: 0.2), value: toastMessage)
             .navigationTitle(capture.dateCreated.formatted(date: .abbreviated, time: .shortened))
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.black, for: .navigationBar)
@@ -98,6 +115,19 @@ private struct CaptureDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("CLOSE") { dismiss() }
+                }
+                ToolbarItemGroup(placement: .primaryAction) {
+                    if let image {
+                        ShareLink(
+                            item: Image(uiImage: image),
+                            preview: SharePreview("Jet Set Vision Creation", image: Image(uiImage: image))
+                        )
+                        .accessibilityLabel("Share this creation")
+                    }
+                    Button(action: saveToPhotos) {
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                    .accessibilityLabel("Save to Photos")
                 }
                 ToolbarItem(placement: .destructiveAction) {
                     Button(role: .destructive, action: onDelete) {
@@ -109,5 +139,25 @@ private struct CaptureDetailView: View {
             }
         }
         .preferredColorScheme(.dark)
+    }
+
+    private func saveToPhotos() {
+        guard let image else { return }
+        PhotoLibrarySaver.save(image) { result in
+            switch result {
+            case .success:
+                toastIsError = false
+                toastMessage = "SAVED TO PHOTOS"
+            case .failure(.accessDenied):
+                toastIsError = true
+                toastMessage = "ENABLE PHOTOS ACCESS IN SETTINGS"
+            case .failure(.saveFailed):
+                toastIsError = true
+                toastMessage = "COULDN'T SAVE — TRY AGAIN"
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                toastMessage = nil
+            }
+        }
     }
 }
