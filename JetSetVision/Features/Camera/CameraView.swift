@@ -16,7 +16,9 @@ struct CameraView: View {
     @StateObject private var captureController = ARCaptureController()
     @State private var permissionStatus: CameraPermissionService.Status = .notDetermined
     @State private var showGallery = false
+    @State private var showSettings = false
     @State private var showCaptureFlash = false
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -35,6 +37,9 @@ struct CameraView: View {
             }
         }
         .onAppear(perform: resolvePermission)
+        .fullScreenCover(isPresented: .constant(!hasSeenOnboarding)) {
+            OnboardingView { hasSeenOnboarding = true }
+        }
         .onChange(of: scenePhase) { _, phase in
             // Save whenever the app leaves the foreground, not just on
             // explicit quit — backgrounding is the reliable signal on iOS,
@@ -101,6 +106,9 @@ struct CameraView: View {
         .sheet(isPresented: $showGallery) {
             GalleryView()
         }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(placementController: placementController)
+        }
     }
 
     private var topBar: some View {
@@ -108,12 +116,26 @@ struct CameraView: View {
             HStack {
                 modeToggle
                 Spacer()
+                settingsButton
                 galleryButton
             }
             .padding(.horizontal, 20)
             .padding(.top, 56)
             Spacer()
         }
+    }
+
+    private var settingsButton: some View {
+        Button {
+            showSettings = true
+        } label: {
+            Image(systemName: "gearshape.fill")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(.white)
+                .padding(12)
+                .background(.black.opacity(0.55), in: Circle())
+        }
+        .accessibilityLabel("Open settings")
     }
 
     private var modeToggle: some View {

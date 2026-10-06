@@ -100,6 +100,21 @@ final class GraffitiPlacementController: ObservableObject {
         hasSelection = false
     }
 
+    /// Wipes every placed piece from both the RealityKit scene and the
+    /// ARSession — used by the "Clear All Placements" settings action.
+    /// Pairs with `WorldMapStore.clear()` so a relaunch doesn't try to
+    /// restore what was just wiped.
+    func clearAllPlacements() {
+        guard let arView else { return }
+        for instance in instances.values {
+            arView.scene.removeAnchor(instance.anchorEntity)
+            arView.session.remove(anchor: instance.anchor)
+        }
+        instances.removeAll()
+        selectedInstanceID = nil
+        hasSelection = false
+    }
+
     private func place(at result: ARRaycastResult) {
         guard arView != nil else { return }
 

@@ -29,4 +29,11 @@ enum WorldMapStore {
             try? data.write(to: fileURL)
         }
     }
+
+    /// Deletes the saved map — pairs with `GraffitiPlacementController.clearAllPlacements()`
+    /// so a relaunch after clearing doesn't try to restore what was just wiped.
+    static func clear() {
+        guard let fileURL else { return }
+        try? FileManager.default.removeItem(at: fileURL)
+    }
 }
